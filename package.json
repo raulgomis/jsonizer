@@ -1,0 +1,37 @@
+{
+  "name": "json-ize",
+  "version": "0.1.8",
+  "description": "\"Keep your JSON structures versioned\"",
+  "main": "dist/jsonize.js",
+  "bin": {
+    "jsonize": "bin/index.js"
+  },
+  "scripts": {
+    "test": "sh tests/test.sh",
+    "compile": "babel -d dist/ lib/",
+    "prepublish": "npm run compile"
+  },
+  "keywords": [
+    "JSON structure",
+    "JSON version",
+    "versioning",
+    "JSON update"
+  ],
+  "author": {
+    "name": "Elena Torro <elenatorro@gmail.com>",
+    "url": "https://elenatorr.github.io"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "mocha": "^2.3.4",
+    "should": "^8.0.0"
+  },
+  "dependencies": {
+    "acho": "^2.4.1",
+    "fs": "0.0.2",
+    "fs-extra": "^0.26.2",
+    "semver": "^5.1.0",
+    "underscore": "^1.8.3"
+  }
+}

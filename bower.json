@@ -1,0 +1,27 @@
+{
+  "name": "json-ize",
+  "version":"0.1.8",
+  "description": "\"Keep your JSON structures versioned\"",
+  "main": "lib/jsonize.js",
+  "author": "Elena Torro <elenatorro@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "JSON",
+    "JSON structure",
+    "JSON version",
+    "versioning",
+    "JSON update"
+  ],
+  "homepage": "https://github.com/elenatorro/jsonize",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "test",
+    "tests",
+    "src"
+  ]
+}

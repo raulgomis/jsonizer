@@ -1,0 +1,47 @@
+{
+  "structure": {
+    "version": "0.1.0",
+    "foo": "string"
+  },
+  "versions": {
+    "0.1.0": {
+      "date": "10-12-2015",
+      "description": "description",
+      "add": {},
+      "delete": [],
+      "modify": {},
+      "next": "minor"
+    },
+    "0.2.0": {
+      "date": "10-13-2015",
+      "description": "description",
+      "add": {
+        "bar": "object"
+      },
+      "delete": [],
+      "modify": {
+        "foo": {
+          "foo": "boolean"
+        }
+      },
+      "next": "patch"
+    },
+    "0.2.1": {
+      "date": "10-14-2015",
+      "description": "description",
+      "add": {
+        "foofoo": "number"
+      },
+      "delete": [
+        {
+          "foo": [
+            "foo"
+          ]
+        }
+      ],
+      "modify": {
+        "bar": "string"
+      }
+    }
+  }
+}

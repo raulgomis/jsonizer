@@ -1,0 +1,15 @@
+{
+  "structure": {
+    "version": "0.1.0",
+    "foo": "string"
+  },
+  "versions": {
+    "0.1.0": {
+      "date": "10-12-2015",
+      "description": "description",
+      "add": {},
+      "delete": {},
+      "modify": {}
+    }
+  }
+}
