@@ -1,4 +1,4 @@
-/*! https://github.com/jsonize v0.1.8 by elenatorro | MIT license */
+/*! https://github.com/jsonizer v0.1.8 by elenatorro | MIT license */
 
 (function (factory) {
   "use strict";
@@ -8,16 +8,16 @@
   } else if (typeof module != "undefined" && typeof module.exports != "undefined") {
     module.exports = factory();
   } else if (typeof Package !== "undefined") {
-    jsonize = factory(); // export for Meteor.js
+    jsonizer = factory(); // export for Meteor.js
   } else {
       /* jshint sub:true */
-      window["jsonize"] = factory();
+      window["jsonizer"] = factory();
     }
 })(function () {
   const _ = require('underscore');
   const semver = require('semver');
 
-  var jsonize = {};
+  var jsonizer = {};
 
   var set = {
     version: {
@@ -26,44 +26,44 @@
           "date": new Date().toISOString(),
           "description": "New structure"
         };
-        if (jsonize.validate.version(structure)) {
+        if (jsonizer.validate.version(structure)) {
           version = version || "major";
-          jsonize.set.semver(version);
-          jsonize.set.version.structure(semver.inc(jsonize.config.structure.version, version), structure);
+          jsonizer.set.semver(version);
+          jsonizer.set.version.structure(semver.inc(jsonizer.config.structure.version, version), structure);
           return true;
         }
         return false;
       },
       structure: function (version, structure) {
         structure.date = new Date().toISOString();
-        jsonize.config.versions[version] = structure;
-        jsonize.set.version.current(version);
+        jsonizer.config.versions[version] = structure;
+        jsonizer.set.version.current(version);
       },
       current: function (version) {
-        jsonize.config.structure.version = version || jsonize.config.structure.version;
+        jsonizer.config.structure.version = version || jsonizer.config.structure.version;
       }
     },
     data: function (data) {
       data = data || '{}';
-      jsonize.data = JSON.parse(data);
+      jsonizer.data = JSON.parse(data);
     },
     semver: function (version) {
-      jsonize.config.versions[jsonize.config.structure.version].next = version;
+      jsonizer.config.versions[jsonizer.config.structure.version].next = version;
     },
     structure: function (structure) {
-      jsonize.config.structure = structure;
+      jsonizer.config.structure = structure;
     },
     config: {
       data: function (data, config) {
-        jsonize.set.config.current(config);
-        jsonize.set.data(data);
+        jsonizer.set.config.current(config);
+        jsonizer.set.data(data);
       },
       current: function (config) {
-        jsonize.config = config || jsonize.config;
-        jsonize.set.version.current(jsonize.config.structure.version);
+        jsonizer.config = config || jsonizer.config;
+        jsonizer.set.version.current(jsonizer.config.structure.version);
       },
       default: function () {
-        jsonize.config = {
+        jsonizer.config = {
           "structure": {
             "version": "0.1.0"
           },
@@ -83,7 +83,7 @@
 
   var get = {
     version: function (version) {
-      return jsonize.config.versions[version] || false;
+      return jsonizer.config.versions[version] || false;
     }
   };
 
@@ -95,14 +95,14 @@
     },
 
     modify: function (oldStructure, newStructure) {
-      jsonize.keys.add(oldStructure, newStructure);
+      jsonizer.keys.add(oldStructure, newStructure);
     },
 
     delete: function (oldStructure, newStructure) {
       newStructure.forEach(function (key) {
         if (typeof key === 'object') {
           for (var childKey in key) {
-            jsonize.keys.delete(oldStructure[childKey], key[childKey]);
+            jsonizer.keys.delete(oldStructure[childKey], key[childKey]);
           }
         } else {
           delete oldStructure[key];
@@ -113,50 +113,50 @@
 
   var update = {
     variables: function (oldStructure, newStructure) {
-      jsonize.keys.add(oldStructure, newStructure.add);
-      jsonize.keys.modify(oldStructure, newStructure.modify);
-      jsonize.keys.delete(oldStructure, newStructure.delete);
+      jsonizer.keys.add(oldStructure, newStructure.add);
+      jsonizer.keys.modify(oldStructure, newStructure.modify);
+      jsonizer.keys.delete(oldStructure, newStructure.delete);
     },
     next: function (version) {
-      jsonize.update.variables(jsonize.config.structure, jsonize.next(version, jsonize.config.versions[version]));
+      jsonizer.update.variables(jsonizer.config.structure, jsonizer.next(version, jsonizer.config.versions[version]));
     },
 
     current: function () {
-      jsonize.update.variables(jsonize.config.structure, jsonize.config.versions[jsonize.config.structure.version]);
-      jsonize.set.version.current();
+      jsonizer.update.variables(jsonizer.config.structure, jsonizer.config.versions[jsonizer.config.structure.version]);
+      jsonizer.set.version.current();
     },
 
     last: function () {
-      if (jsonize.config.versions[jsonize.config.structure.version].next) {
-        jsonize.update.next(jsonize.config.structure.version);
-        jsonize.update.last();
+      if (jsonizer.config.versions[jsonizer.config.structure.version].next) {
+        jsonizer.update.next(jsonizer.config.structure.version);
+        jsonizer.update.last();
       } else {
-        jsonize.update.current();
+        jsonizer.update.current();
       }
     }
   };
 
   var validate = {
     version: function (structure) {
-      structure = structure || jsonize.config.structure;
+      structure = structure || jsonizer.config.structure;
       return structure.date != null && structure.description != null;
     },
     outdated: function (structure) {
-      return semver.gt(jsonize.config.structure.version, structure.version);
+      return semver.gt(jsonizer.config.structure.version, structure.version);
     }
   };
 
   function next(version, versionStructure) {
     var next = semver.inc(version, versionStructure.next);
-    jsonize.set.version.current(next);
-    return jsonize.config.versions[next];
+    jsonizer.set.version.current(next);
+    return jsonizer.config.versions[next];
   }
 
   function init(config, data) {
-    jsonize.set.config.data(config, data);
+    jsonizer.set.config.data(config, data);
   }
 
-  jsonize = {
+  jsonizer = {
     init: init,
     set: set,
     get: get,
@@ -166,5 +166,5 @@
     keys: keys
   };
 
-  return jsonize;
+  return jsonizer;
 });
