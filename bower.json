@@ -1,6 +1,6 @@
 {
   "name": "jsonizer",
-  "version":"0.1.8",
+  "version":"0.1.0",
   "description": "\"Keep your JSON structures versioned\"",
   "main": "lib/jsonize.js",
   "author": "Elena Torro <elenatorro@gmail.com>",
