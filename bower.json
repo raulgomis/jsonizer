@@ -1,5 +1,5 @@
 {
-  "name": "json-ize",
+  "name": "jsonizer",
   "version":"0.1.8",
   "description": "\"Keep your JSON structures versioned\"",
   "main": "lib/jsonize.js",

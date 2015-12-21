@@ -1,16 +1,16 @@
-var jsonize = require('../lib/jsonize-cli')
+var jsonizer = require('../lib/jsonizer-cli')
 var assert = require('assert')
 var should = require('should')
 var _ = require('underscore')
 var fs = require('fs-extra')
 
-const testsPath =  './jsonize.json'
+const testsPath =  './jsonizer.json'
 const jsstring = JSON.stringify
 
-describe('jsonize configuration', function() {
+describe('jsonizer configuration', function() {
 	it('should create a new configuration by default if it does not exist', function() {
-		assert(jsonize.options.default)
-		jsonize.options.default()
+		assert(jsonizer.options.default)
+		jsonizer.options.default()
 		var defaultConfig = fs.readJsonSync(testsPath);
 		assert.equal(defaultConfig.structure.version, '0.1.0')
 		assert(_.isEqual(defaultConfig.structure, {"version": "0.1.0"}))

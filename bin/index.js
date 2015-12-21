@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 ;(function () {
-  var jsonize = require('../lib/jsonize-cli')
+  var jsonizer = require('../lib/jsonizer-cli')
   var fs = require('fs')
   var fse = require('fs-extra')
 
@@ -12,8 +12,8 @@
 
   var main = function () {
     if (!input.operation) {
-      log('Error: json-ize requires an operation ')
-      log('Try `json-ize --help` for more information.')
+      log('Error: jsonizer requires an operation ')
+      log('Try `jsonizer --help` for more information.')
       return process.exit(1)
     }
 
@@ -21,10 +21,10 @@
     if (/^(?:-h|--help|undefined)$/.test(input.operation)) {
       log([
         '\nUsage:\n',
-        '\tjson-ize load',
-        '\tjson-ize validate',
-        '\tjson-ize add',
-        '\tjson-ize show'
+        '\tjsonizer load',
+        '\tjsonizer validate',
+        '\tjsonizer add',
+        '\tjsonizer show'
       ].join('\n'))
       return process.exit(1)
     }
@@ -36,13 +36,13 @@
 
     var result
     try {
-      jsonize.options[input.operation](input.arguments[0])
+      jsonizer.options[input.operation](input.arguments[0])
     } catch(error) {
       log(error.message + '\n')
       log('Error: failed to %s.', input.operation)
       log(
-        '\nStack trace using json-ize@%s:\n',
-         jsonize.version
+        '\nStack trace using jsonizer@%s:\n',
+         jsonizer.version
       )
       log(error.stack)
       return process.exit(1)
