@@ -1,23 +1,28 @@
 /*! https://github.com/jsonizer v0.1.0 by elenatorro | MIT license */
 
 (function (factory) {
-  "use strict";
+  'use strict';
 
-  if (typeof define === "function" && define.amd) {
-    define(factory);
-  } else if (typeof module != "undefined" && typeof module.exports != "undefined") {
-    module.exports = factory();
-  } else if (typeof Package !== "undefined") {
-    jsonizer = factory(); // export for Meteor.js
+  if (typeof define === 'function' && define.amd) {
+    // AMD is used - Register as an anonymous module.
+    define(['underscore', 'semver'], factory);
+  } else if (typeof exports === 'object') {
+    factory(require('underscore'), require('semver'));
   } else {
-      /* jshint sub:true */
-      window["jsonizer"] = factory();
+    // Neither AMD nor CommonJS used. Use global variables.
+    if (typeof _ === 'undefined') {
+      throw 'jsonizer requires "underscore.js" to be loaded first';
     }
-})(function () {
-  const _ = require('underscore');
-  const semver = require('semver');
+    if (typeof semver === 'undefined') {
+      throw 'jsonizer requires "semver" to be loaded first';
+    }
+    factory(_, semver);
+  }
+})(function (_, semver) {
 
-  var jsonizer = {};
+  if (!_) {
+    throw new Error('jsonizer requires "underscore.js" to be loaded first');
+  }
 
   var set = {
     version: {
